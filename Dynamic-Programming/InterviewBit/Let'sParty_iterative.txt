@@ -1,0 +1,12 @@
+int Solution::solve(int n) {
+    vector<int> v(n+1, 0);
+    v[0] = 0;
+    v[1] = 1;
+    v[2] = 2;
+    v[3] = 4;
+    for(int i=4;i<=n;i++)
+    {
+        v[i] = (v[i-1]%10003 + ((i-1)*v[i-2])%10003)%10003;
+    }
+    return v[n]%10003;
+}

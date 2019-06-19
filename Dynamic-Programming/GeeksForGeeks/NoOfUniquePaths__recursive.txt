@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+#include<iostream>
+using namespace std;
+int fxn(int r1, int r2, int c1, int c2, vector<vector<int> > &v)
+{
+    if(r1 == r2 && c1 == c2)
+    {
+        return v[r1][c1];
+    }
+    if(r1 < 0 || r1 > r2 || c1 < 0 || c1 > c2)
+    {
+        return 0;
+    }
+    if(v[r1][c1] != -1)
+    {
+        return v[r1][c1]; 
+    }
+    int i = fxn(r1+1,r2,c1,c2,v);
+    int j = fxn(r1,r2,c1+1,c2,v);
+    v[r1][c1] = i + j;
+    return abs(v[r1][c1]);
+}
+int main() {
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	    int m;
+	    cin>>m;
+	    int n;
+	    cin>>n;
+	    int count = 0;
+	    vector<vector<int> > v(m, vector<int> (n, -1));
+	    int ans = fxn(0,m-1,0, n-1, v);
+	    cout<<ans;
+	    cout<<endl;
+	}
+	return 0;
+}
