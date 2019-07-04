@@ -1,0 +1,85 @@
+//RECURSIVE
+// int fxn(string a, int i, int j)
+// {
+//     if(i == j)
+//     {
+//         return 1;
+//     }
+//     if(a[i] == a[j] && j == i+1)
+//     {
+//         return 2;
+//     }
+//     else if(a[i] == a[j])
+//     {
+//         return fxn(a, i+1, j-1) + 2;
+//     }
+//     else return max(fxn(a,i+1, j), fxn(a,i,j-1));
+// }
+// int Solution::solve(string a) {
+//     int n = a.size();
+//     return fxn(a, 0, n-1);
+// }
+
+//ITERATIVE
+
+// int Solution::solve(string a) {
+//     int n = a.size();
+//     vector<vector<int>> v(n, vector<int> (n, 0));
+//     for(int i=0;i<n;i++){
+//         v[i][i] = 1;
+//     }
+//     for(int length = 2; length <= n; length++)
+//     {
+//         for(int i=0;i<n-length+1;i++)
+//         {
+//             int j = i+length-1;
+//             if(a[i] == a[j] && length == 2) {
+//                 v[i][j] = 2;
+//             }
+//             else if(a[i] == a[j]) {
+//                 v[i][j] = v[i+1][j-1] + 2;
+//             }
+//             else {
+//                 v[i][j] = max(v[i+1][j], v[i][j-1]);
+//             }
+//         }
+//     }
+//     return v[0][n-1];
+// }
+
+
+
+//Using LCS
+
+
+int fxn(string a, string b) {
+    int n = a.size();
+    int m = b.size();
+    vector<vector<int>> v(n+1, vector<int>(m+1));
+    for(int i=0;i<=n;i++)
+    {
+        for(int j=0;j<=m;j++)
+        {
+            if(i == 0 || j == 0)
+            {
+                v[i][j] = 0;
+            }
+            else if(a[i-1] == b[j-1])
+            {
+                v[i][j] = v[i-1][j-1] + 1;
+            }
+            else
+            {
+                v[i][j] = max(v[i][j-1], v[i-1][j]);
+            }
+        }
+    }
+    return v[n][m];
+}
+
+
+int Solution::solve(string a) {
+    string b = a;
+    reverse(b.begin(), b.end());
+    return fxn(a, b); 
+}
