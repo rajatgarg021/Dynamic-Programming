@@ -1,0 +1,79 @@
+int loot(vector<vector<int>> v, int start, vector<int> &ans)
+{
+    int n = v[0].size();
+    if(start >= n)
+    {
+        return 0;
+    }
+    if(ans[start] != -1)
+    {
+        return ans[start];
+    }
+    
+    int i = v[0][start] + loot(v, start+2, ans);
+    int j = v[1][start] + loot(v, start+2, ans);
+    
+    int k = loot(v, start+1, ans);
+    ans[start] = max(i, max(j,k));
+    return ans[start];
+}
+int Solution::adjacent(vector<vector<int> > &a) {
+    int n = a[0].size();
+    vector<int> ans(n, -1);
+    return loot(a, 0, ans);
+    
+}
+
+//iterative
+
+
+// int loot(vector<int> v)
+// {
+//     int n = v.size();
+//     if(n == 0)
+//     {
+//         return 0;
+//     }
+//     else if(n == 1)
+//     {
+//         return v[0];
+//     }
+//     else if(n == 2)
+//     {
+//         return max(v[0], v[1]);
+//     }
+//     vector<int> ans(n);
+//     ans[0] = v[0];
+//     ans[1] = max(v[1], v[0]);
+//     for(int i=2;i<n;i++)
+//     {
+//         ans[i] = max(v[i] + ans[i-2], ans[i-1]);
+//     }
+//     return ans[n-1];
+    
+// }
+
+// int Solution::adjacent(vector<vector<int> > &a) {
+//     int n = a[0].size();
+    
+//     vector<int> v(n);
+//     for(int i=0;i<n;i++)
+//     {
+//         v[i] = max(a[0][i],a[1][i]);
+//     }
+//     return loot(v);
+    
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
